@@ -33,7 +33,6 @@ Vagrant.configure("2") do |config|
 
     config.vm.provider :lxc do |lxc|
       lxc.customize 'cgroup.memory.limit_in_bytes', '1024M'
-      lxc.container_name = 'avantslovakia-lxc'
     end
 
 	config.vm.synced_folder "../../", "/vagrant"
