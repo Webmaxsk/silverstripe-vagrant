@@ -1,0 +1,41 @@
+ServerRoot "/etc/httpd"
+
+<Directory />
+    AllowOverride none
+    Require all denied
+</Directory>
+
+DocumentRoot "/vagrant/public"
+
+<Directory "/vagrant/public">
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+</Directory>
+
+<VirtualHost *:80>
+  ServerName localhost
+  DocumentRoot /vagrant/public
+  ErrorLog /vagrant/apache.error.log
+  CustomLog /vagrant/apache.access.log common
+  LogLevel warn
+  ServerSignature Off
+
+  <Directory /vagrant/public>
+    Options +FollowSymLinks
+    Options -ExecCGI -Includes -Indexes
+    AllowOverride all
+    Require all granted
+	<IfModule mod_php5.c>
+		php_value upload_max_filesize 8M
+		php_value max_execution_time 60
+		php_value date.timezone Europe/Bratislava
+		php_flag phar.readonly off
+	</IfModule>
+  </Directory>
+
+  # SilverStripe specific
+  <LocationMatch assets/>
+    php_flag engine off
+  </LocationMatch>
+</VirtualHost>

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ "$1" != "" ]; then
+  if [ "$2" != "" ]; then
+    if [ "$1" == "load-2-local" ]; then
+       sspak load /vagrant/$2 /vagrant/public
+       mv /vagrant/$2 /vagrant/$2.used
+       chown vagrant:vagrant -R /vagrant/public/assets
+       chmod 777 -R /vagrant/public/assets
+    elif [ "$1" == "save-local" ]; then
+       sspak save /vagrant/public/ /vagrant/$2
+    else
+       sspak "$@"
+    fi
+	else
+		echo "no valid action defined, use load-2-local, save-local or any other valid sspak action"
+  fi
+else
+    echo "no valid action defined, use load-2-local, save-local or any other valid sspak action"
+fi

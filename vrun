@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ -e Vagrantfile ]; then
+  echo "You are in vagrant folder. Fine!"
+else
+  if [ -e vagrant/Vagrantfile ]; then
+    echo "You are in SS root. Fine!"
+    cd vagrant
+  else
+    echo "You must be in SilverStripe project root or in vagrant directory!"
+    exit 1
+  fi
+fi
+
+if [ "$1" == "vagrant" ]; then
+	p=""
+    for item in "${@:2}"
+    do
+        p=$p" "$item
+    done
+	echo "running vagrant $p"
+	vagrant $p
+else
+	cmd="${@}"
+	echo "running command $cmd"	
+	vagrant ssh -c "${cmd}"
+fi
+
