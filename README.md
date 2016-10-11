@@ -110,7 +110,7 @@ vrun mygulp install
 ```
 
 
-## Save vagarant guest for later usage / vagrant backup
+## Save vagrant guest for later usage / vagrant backup
 After you finish your project, I do recommend to create ready to use vagrant package for later use.
 ```bash
 cd public/vagrant
