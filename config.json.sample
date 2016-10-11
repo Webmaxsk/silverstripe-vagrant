@@ -1,0 +1,8 @@
+{
+	"provider": "virtualbox",
+	"box": false, 
+	"ip_address": "192.168.2.199",
+	"db_name": "silverstripe",
+	"theme": "source_silverstripe",
+	"forward_agent": false
+}
