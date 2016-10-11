@@ -1,6 +1,7 @@
 # silverstripe-vagrant
 Vagrant setup for SilverStripe CMS. All-in-one vagrant setup with sspak, composer, gulp, sake, apache, mysql in it.
 
+
 ## Project structure
 
        Project root
@@ -8,6 +9,7 @@ Vagrant setup for SilverStripe CMS. All-in-one vagrant setup with sspak, compose
     config.json    public
                	    \
               	    Silverstripe files
+
 
 
 ## Installation
@@ -33,14 +35,16 @@ cd public/vagrant && vagrant up --provider="lxc"
 
 add .vagrant folder to public/.gitignore
 - you should commit vagrant dir, but not local vagrant setup (in public/vagrant/.vagrant)
-- you can customize vagrant for each project individually - if it is in reposirory, every team member is sharing same vagrant setup
+- you can customize vagrant for each project individually - if it is in repository, every team member is sharing same vagrant setup
 
 OPTIONAL: install quick vagrant execution script
+
 Global script allowing execution of commands in vagrant guest from host 
 ```bash
 cp -f public/vagrant/vrun /usr/local/bin/vrun
 ```
 (you must be in public or public/vagrant folder) 
+
 Example:
 ```bash
 vrun top
@@ -67,11 +71,12 @@ Install node modules (for gulp theme)
 vrun mygulp install
 ```
 
+
 ## Usage
 As our paths in vagrant guest are known and do not change in different projects, we can use extended versions of scripts with "my" prefix
 
 ### sspak
-run any sspak command or use custom actions save-local or load-2-local
+run any sspak command or use custom actions like save-local or load-2-local
 
 ```bash
 vrun mysspak save-local test.sspak
@@ -104,14 +109,16 @@ vrun mygulp anything
 vrun mygulp install
 ```
 
-## save vagarant guest for later usage / vagrant backup
+
+## Save vagarant guest for later usage / vagrant backup
 After you finish your project, I do recommend to create ready to use vagrant package for later use.
 ```bash
 cd public/vagrant
 vagrant package --output ../../test.box
 ```
-will save test.box to Project root. After, you can safely destroy existing vagrant ("vrun vagrant destroy") and archive whole Project. Once you need to run this project again, just unarchive project and change congig.json in row "box" with "test.box" and run "vrun vagrant up"
+will save test.box to Project root. After, you can safely destroy existing vagrant ("vrun vagrant destroy") and archive whole Project. Once you need to run this project again, just unarchive project and change config.json in row "box" with "test.box" and run "vrun vagrant up"
 NOTICE: "vrun vagrant anything" is not executed on vagrant guest, but in host (shortcut - you don't need to go to public/vagrant folder).
+
 
 ## ToDo
 xdebug, ...
