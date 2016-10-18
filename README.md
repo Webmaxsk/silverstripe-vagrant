@@ -33,17 +33,13 @@ OPTIONAL: if using non-default vagrant provider add provider to the end
 cd public/vagrant && vagrant up --provider="lxc"
 ```
 
-add .vagrant folder to public/.gitignore
-- you should commit vagrant dir, but not local vagrant setup (in public/vagrant/.vagrant)
-- you can customize vagrant for each project individually - if it is in repository, every team member is sharing same vagrant setup
-
 OPTIONAL: install quick vagrant execution script
 
 Global script allowing execution of commands in vagrant guest from host 
+(you must be in public or public/vagrant folder) 
 ```bash
 cp -f public/vagrant/vrun /usr/local/bin/vrun
 ```
-(you must be in public or public/vagrant folder) 
 
 Example:
 ```bash
