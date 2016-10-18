@@ -118,4 +118,4 @@ NOTICE: "vrun vagrant anything" is not executed on vagrant guest, but in host (s
 
 
 ## ToDo
-xdebug, ...
+xdebug, https
