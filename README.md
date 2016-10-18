@@ -113,6 +113,7 @@ cd public/vagrant
 vagrant package --output ../../test.box
 ```
 will save test.box to Project root. After, you can safely destroy existing vagrant ("vrun vagrant destroy") and archive whole Project. Once you need to run this project again, just unarchive project and change config.json in row "box" with "test.box" and run "vrun vagrant up"
+
 NOTICE: "vrun vagrant anything" is not executed on vagrant guest, but in host (shortcut - you don't need to go to public/vagrant folder).
 
 
