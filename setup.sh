@@ -7,6 +7,8 @@ yum install -y tar bzip2 nano git
 yum install -y httpd httpd-devel mod_ssl
 yum install -y php php-common php-mysql php-pdo php-mcrypt* php-gd php-xml php-mbstring
 
+echo "date.timezone = Europe/Bratislava" >> /etc/php.ini
+
 if [ ! -e /vagrant/httpd.conf ]; 
 then 
 	cp /vagrant/public/vagrant/httpd.conf.sample /vagrant/httpd.conf

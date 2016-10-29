@@ -14,6 +14,7 @@ settings = JSON.parse(File.read('../../config.json'))
 ip_address = settings['ip_address']
 provider = settings['provider']
 box = settings['box']
+container_name = settings['container_name']
 forward_agent = settings['forward_agent']
 puts "IP #{ip_address}, provider #{provider}"
 
@@ -33,6 +34,9 @@ Vagrant.configure("2") do |config|
 
     config.vm.provider :lxc do |lxc|
       lxc.customize 'cgroup.memory.limit_in_bytes', '1024M'
+	  if container_name
+	  	lxc.container_name = "lxc_#{container_name}"
+	  end
     end
 
 	config.vm.synced_folder "../../", "/vagrant"
