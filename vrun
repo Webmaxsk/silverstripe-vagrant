@@ -7,8 +7,13 @@ else
     echo "You are in SS root. Fine!"
     cd vagrant
   else
-    echo "You must be in SilverStripe project root or in vagrant directory!"
-    exit 1
+	if [ -e public/vagrant/Vagrantfile ]; then
+      echo "You are in SS root. Fine!"
+      cd public/vagrant
+    else
+      echo "You must be in SilverStripe project root or in vagrant directory!"
+      exit 1
+    fi 
   fi
 fi
 

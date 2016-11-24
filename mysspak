@@ -1,16 +1,59 @@
 #!/bin/bash
 
+server_test=$(grep -Po '"'"server_test"'"\s*:\s*"\K([^"]*)' /vagrant/config.json)
+server_prod=$(grep -Po '"'"server_prod"'"\s*:\s*"\K([^"]*)' /vagrant/config.json)
+
 if [ "$1" != "" ]; then
   if [ "$2" != "" ]; then
-    if [ "$1" == "load-2-local" ]; then
-       sspak load /vagrant/$2 /vagrant/public
-       mv /vagrant/$2 /vagrant/$2.used
-       chown vagrant:vagrant -R /vagrant/public/assets
-       chmod 777 -R /vagrant/public/assets
+    if [ "$1" == "load-to-local" ]; then
+       	sspak load /vagrant/$2 /vagrant/public
+       	mv /vagrant/$2 /vagrant/$2.used
+       	chown vagrant:vagrant -R /vagrant/public/assets
+       	chmod 777 -R /vagrant/public/assets
+    elif [ "$1" == "load-to-test" ]; then
+		if [ "$server_test" != "" ]; then
+			echo "Are you sure? You will upload local db and assets to remote TEST server."
+			echo "Recommendation: backup before pressing y! It's easy: mysspak save-test test.sspak"
+			read sure
+			if [ "$sure" == "y" ]; then
+				echo "Uplading to test server. Please wait."
+       			sspak load /vagrant/$2 $server_test
+			else 
+				echo "Cancelled."
+			fi
+		else
+			echo "WARNING: no test server defined in config.json!"
+		fi
+    elif [ "$1" == "load-to-prod" ]; then
+		if [ "$server_prod" != "" ]; then
+			echo "Are you sure? You will upload local db and assets to remote PRODUCTION server."
+			echo "Recommendation: backup before pressing y! It's easy: mysspak save-prod prod.sspak"
+			read sure
+			if [ "$sure" == "y" ]; then
+				echo "Uplading to production server. Please wait."
+       			sspak load /vagrant/$2 $server_prod
+			else 
+				echo "Cancelled."
+			fi
+		else
+			echo "WARNING: no test server defined in config.json!"
+		fi
     elif [ "$1" == "save-local" ]; then
-       sspak save /vagrant/public/ /vagrant/$2
+       	sspak save /vagrant/public/ /vagrant/$2
+    elif [ "$1" == "save-test" ]; then
+	  	if [ "$server_test" != "" ]; then
+       		sspak save $server_test /vagrant/$2
+	    else
+			echo "WARNING: no test server defined in config.json!"
+		fi
+    elif [ "$1" == "save-prod" ]; then
+       	if [ "$server_prod" != "" ]; then
+       		sspak save $server_prod /vagrant/$2
+	    else
+			echo "WARNING: no production server defined in config.json!"
+		fi
     else
-       sspak "$@"
+       	sspak "$@"
     fi
 	else
 		echo "no valid action defined, use load-2-local, save-local or any other valid sspak action"

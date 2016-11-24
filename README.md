@@ -80,9 +80,14 @@ vrun mysspak save-local test.sspak
 will save test.sspak package to Project root
 
 ```bash
-vrun mysspak load-2-local test.sspak
+vrun mysspak load-to-local test.sspak
 ```
 will load test.sspak stored in Project root. After execution, test.sspak will be renamed to test.sspak.used
+
+If server_prod and/or server_test defined in config.json, you can use extra tasks:
+ load-to-test, load-to-prod, save-test and save-prod
+
+Warning: be carefull while loading to production server! Backup before you process. You will be asked for confirmation.
 
 ### sake
 run any sake command quickly.
@@ -96,13 +101,22 @@ run any composer command quickly
 vrun mycomposer anything
 ```
 
-### gulp
+### gulp (if available)
 run any gulp command quickly or install theme dependencies
 ```bash
 vrun mygulp anything
 ```
 ```bash
 vrun mygulp install
+```
+
+### compass (if available)
+run compass tasks or install theme dependencies
+```bash
+vrun mycompass anything
+```
+```bash
+vrun mycompass install
 ```
 
 

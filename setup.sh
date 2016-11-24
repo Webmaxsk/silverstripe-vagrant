@@ -29,33 +29,43 @@ systemctl enable mariadb.service
 
 iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
 
-# install node with nvm
-runuser -l  vagrant -c 'wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.6/install.sh | bash'
-
 # prepare theme for gulp
 theme=$(grep -Po '"'"theme"'"\s*:\s*"\K([^"]*)' /vagrant/config.json)
 if [ -d /vagrant/public/themes/${theme}/ ];
 then
-  echo 'found GULP theme folder'
+  echo 'found theme folder ' ${theme}
 
-  export THEME=$theme
-  if [ ! -d /home/vagrant/node_modules/ ];
+  if [ -e /vagrant/public/themes/${theme}/gulpfile.js ];
+  then	
+	  echo 'theme uses GULP (nodejs). Ready for mygulp task.'
+	
+	  # install node with nvm
+	  runuser -l  vagrant -c 'wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash'
+
+	  export THEME=$theme
+	  if [ ! -d /home/vagrant/node_modules/ ];
+	  then
+		echo 'creating symlink for node modules'
+		# directory must be "node_modules", do not ask me why. Some node modules can't be installed if real folder named different (even if symlink named node_modules)
+		runuser -m  vagrant -c 'mkdir /home/vagrant/node_modules'
+		runuser -m  vagrant -c 'ln -s /home/vagrant/node_modules/ /vagrant/public/themes/${THEME}/node_modules'
+	  fi
+
+	  #run this after box creation
+	  echo 'run this after box creation: cd /vagrant/public/themes/${theme}/ && nvm install && npm install'
+  elif [[ -e /vagrant/public/themes/${theme}/config.rb && -e /vagrant/public/themes/${theme}/bower.json ]];
   then
-    echo 'creating symlink for node modules'
-    # directory must be "node_modules", do not ask me why. Some node modules can't be installed if real folder named different (even if symlink named node_modules)
-    runuser -m  vagrant -c 'mkdir /home/vagrant/node_modules'
-    runuser -m  vagrant -c 'ln -s /home/vagrant/node_modules/ /vagrant/public/themes/${THEME}/node_modules'
+  	  echo 'theme uses bundler (ruby). Ready for mycompass task.'
+      runuser -l  vagrant -c 'gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && curl -sSL https://get.rvm.io | bash -s stable --ruby && gem install bundler'
+  else
+      echo 'theme is plain, nothing to do'
   fi
-
-  #run this after box creation
-	echo 'run this after box creation: cd /vagrant/public/themes/${theme}/ && nvm install && npm install'
 fi
 
 #install composer
 if [ ! -e /usr/local/bin/composer ]; 
 then
 	php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-	php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 	php composer-setup.php
 	php -r "unlink('composer-setup.php');"
 	mv composer.phar /usr/local/bin/composer

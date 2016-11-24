@@ -1,0 +1,11 @@
+#!/bin/bash
+
+theme=$(grep -Po '"'"theme"'"\s*:\s*"\K([^"]*)' /vagrant/config.json)
+theme_source_path="/vagrant/public/themes/${theme}/"
+cd $theme_source_path
+
+if [ "$1" == "install" ]; then
+	bundle install
+else
+	compass "$@"
+fi
