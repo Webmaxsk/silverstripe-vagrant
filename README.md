@@ -72,7 +72,7 @@ vrun mygulp install
 As our paths in vagrant guest are known and do not change in different projects, we can use extended versions of scripts with "my" prefix
 
 ### sspak
-run any sspak command or use custom actions like save-local or load-2-local
+run any sspak command or use custom actions like save-local or load-to-local
 
 ```bash
 vrun mysspak save-local test.sspak
