@@ -56,8 +56,8 @@ if [ "$1" != "" ]; then
        	sspak "$@"
     fi
 	else
-		echo "no valid action defined, use load-2-local, save-local or any other valid sspak action"
+		echo "no valid action defined, use load-to-local, save-local or any other valid sspak action"
   fi
 else
-    echo "no valid action defined, use load-2-local, save-local or any other valid sspak action"
+    echo "no valid action defined, use load-to-local, save-local or any other valid sspak action"
 fi
