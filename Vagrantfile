@@ -75,6 +75,7 @@ Vagrant.configure("2") do |config|
   
   # Provision
   config.vm.provision "shell", path: "setup.sh"
+  # config.vm.provision "shell", path: "custom-php.sh"
   config.vm.provision "shell", path: "always.sh", run: "always"
 
 end

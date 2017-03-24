@@ -53,6 +53,11 @@ vagrant ssh
 ```
 and executing script directly from vagrant shell.
 
+Installing custom php version:
+Edit custom-php.sh install script in line:
+- yum-config-manager --enable remi-php56
+- this will install php 5.6 (use 55, 70 as different versions)
+Enable custom-php.sh in Vagrantfile
 
 ## Post installation setup
 
