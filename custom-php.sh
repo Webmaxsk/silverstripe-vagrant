@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # download and install EPEL / REMI
-wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-rpm -Uvh remi-release-7*.rpm epel-release-latest-7*.rpm
+# ! installed in setup.sh - we need it for jpegoptim
+#wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+#wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+#rpm -Uvh remi-release-7*.rpm epel-release-latest-7*.rpm
 
 # install yum-config-manager
 yum install -y yum-utils

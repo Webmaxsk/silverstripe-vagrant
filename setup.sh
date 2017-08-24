@@ -1,11 +1,18 @@
 #!/bin/bash
 
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+rpm -Uvh remi-release-7*.rpm epel-release-latest-7*.rpm
+
 yum update -y --disableplugin=fastestmirror
 systemctl restart sshd
 
 yum install -y tar bzip2 nano git 
 yum install -y httpd httpd-devel mod_ssl
 yum install -y php php-common php-mysql php-pdo php-mcrypt* php-gd php-xml php-mbstring
+
+yum install -y jpegoptim
+yum install -y optipng
 
 echo "date.timezone = Europe/Bratislava" >> /etc/php.ini
 
