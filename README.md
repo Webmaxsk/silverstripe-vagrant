@@ -126,6 +126,15 @@ vrun mycompass anything
 vrun mycompass install
 ```
 
+### logging
+add to mysite/_config.php
+```php
+if (file_exists("/vagrant/config.json")) {
+    SS_Log::add_writer(new SS_LogFileWriter(BASE_PATH . '/../sslogs/ss-errors.log'), SS_Log::WARN, '<=');
+    SS_Log::add_writer(new SS_LogFileWriter(BASE_PATH . '/../sslogs/ss-debug.log'), SS_Log::NOTICE, '>=');
+}
+```
+
 
 ## Save vagrant guest for later usage / vagrant backup
 After you finish your project, I do recommend to create ready to use vagrant package for later use.
