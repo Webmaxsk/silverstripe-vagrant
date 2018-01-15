@@ -25,7 +25,7 @@ add config.json to Project root
 
 initialize vagrant
 ```bash
-cd public/vagrant && vagrant up 
+cd public/vagrant && vagrant up
 ```
 
 OPTIONAL: if using non-default vagrant provider add provider to the end
@@ -35,8 +35,8 @@ cd public/vagrant && vagrant up --provider="lxc"
 
 OPTIONAL: install quick vagrant execution script
 
-Global script allowing execution of commands in vagrant guest from host 
-(you must be in public or public/vagrant folder) 
+Global script allowing execution of commands in vagrant guest from host
+(you must be in public or public/vagrant folder)
 ```bash
 cp -f public/vagrant/vrun /usr/local/bin/vrun
 ```

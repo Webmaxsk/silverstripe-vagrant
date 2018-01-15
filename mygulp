@@ -5,9 +5,9 @@ theme_source_path="/vagrant/public/themes/${theme}/"
 cd $theme_source_path
 
 if [ "$1" == "install" ]; then
-	. ~/.nvm/nvm.sh
-	nvm install
-	npm install 
+    . ~/.nvm/nvm.sh
+    nvm install
+    npm install
 else
-	node_modules/gulp/bin/gulp.js "$@"
+    node_modules/gulp/bin/gulp.js "$@"
 fi

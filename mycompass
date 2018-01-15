@@ -5,7 +5,7 @@ theme_source_path="/vagrant/public/themes/${theme}/"
 cd $theme_source_path
 
 if [ "$1" == "install" ]; then
-	bundle install
+    bundle install
 else
-	compass "$@"
+    compass "$@"
 fi
